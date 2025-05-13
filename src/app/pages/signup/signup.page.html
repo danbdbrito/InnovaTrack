@@ -1,0 +1,78 @@
+<ion-content [fullscreen]="true">
+  <div class="header">
+    <ion-title class="title">Bienvenido</ion-title>
+    <p class="subTitle"> Registre su usuario para crear su cuenta</p>    
+  </div>
+
+  <div class="bird-icon">
+    <div class="circle1">
+      <img src="assets/Bird-icon.png" alt="bird" class="bird">
+    </div>
+    <div class="circle2">
+      <img src="assets/bosque.png" alt="bosque" class="bosque">
+    </div>
+  </div>
+
+    <form [formGroup]="regForm" novalidate>
+      <div class="ion-padding">
+        <ion-item>
+          <ion-input formControlName="fullname" placeholder="Nombre" class="input"></ion-input>
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-item>
+
+        <div *ngIf="this.regForm.controls?.['fullname'].touched && this.regForm.controls?.['fullname'].invalid">
+          <ion-text *ngIf="errorControl.fullname.errors?.required">
+            Se requiere el nombre completo
+          </ion-text>
+        </div>
+
+        <ion-item>
+          <ion-input formControlName="email" placeholder="Correo" class="input"></ion-input>
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-item>
+
+        <div *ngIf="this.regForm.controls?.['email'].touched && this.regForm.controls?.['email'].invalid">
+          <ion-text *ngIf="errorControl.email.errors?.required">
+            Se requiere su correo
+          </ion-text>
+
+          <ion-text *ngIf="errorControl.email.errors?.pattern">
+            Su correo debe ser valido
+          </ion-text>
+        </div>
+
+        <ion-item>
+          <ion-input type="password" formControlName="password" placeholder="Contraseña" class="input"></ion-input>
+          <ion-icon name="lock-closed-outline"></ion-icon>
+        </ion-item>
+
+        <div *ngIf="this.regForm.controls?.['password'].touched && this.regForm.controls?.['password'].invalid">
+          <ion-text *ngIf="errorControl.password.errors?.required">
+            Se requiere su contraseña
+          </ion-text>
+
+          <ion-text *ngIf="errorControl.password.errors?.pattern">
+            Su contraseña debe contar con al menos 
+            Un Caracter,
+            Una letra Mayuscula,
+            Un numero,
+            Al menos 8 digitos
+          </ion-text>
+        </div>
+
+        <div class="signupLink">
+          <p>¿Ya es usuario?<a [routerLink]="['/login']"> Iniciar sesion</a></p>
+        </div>
+      </div>
+
+      <ion-fab vertical="bottom" horizontal="end" style="margin-bottom: 30px;">
+        <ion-fab-button (click)="signUp()">
+          <ion-icon name="chevron-forward"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </form>
+    <div class="content-wrapper">
+      <img src="assets/planta-izq.png" alt="Planta" class="planta">
+      <img src="assets/planta-der.png" alt="Planta" class="planta">
+    </div>
+</ion-content>
