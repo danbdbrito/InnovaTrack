@@ -1,0 +1,45 @@
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+1) npm install -g @ionic/cli@7
+
+2) mkdir firstApp
+
+3) ionic start firstApp blank
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+---- Permisos de windows
+4) set-executionpolicy remotesigned
+
+---- Dependencias
+5) pip install -r requirements.txt
+
+---- Para iniciar servidor
+6) ionic serve
+
+---- Para añadir paginas o modulos
+7) ionic generate page "nombrepagina"
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+---- intalar libreria
+8) npm install -g @angular/cli
+
+---- Para instalar firebase en angular
+9) ng add @angular/fire
+
+10)(en src/app) ionic g service authentica
+
+11) (para librerias de form) npm install @ionic-native/core --legacy--peer-deps
+
+12)(para libreria IonicStorage) npm install @ionic/storage
+
+13)(camara) npm install @capacitor/camera
+
+14)(para compresion de imagen) npm install browser-image-resizer
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+---- capacitor
+12) ionic capacitor add android
+
+-- para cada cambio en capacitor
+13) ionic capacitor sync
+
+14)ionic capacitor open android
