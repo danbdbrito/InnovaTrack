@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Historial de Recorridos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let recorrido of historialRecorridos; let i = index">
+      <ion-label>
+        <h2>{{ recorrido.bus }}</h2>
+        <p><strong>Ruta:</strong> {{ recorrido.ruta }}</p>
+        <p><strong>Hora de salida:</strong> {{ recorrido.horaSalida }}</p>
+
+        <!-- NUEVO: Mostrar paradas -->
+        <p *ngIf="recorrido.paradasSeleccionadas?.length">
+          <strong>Paradas:</strong> {{ recorrido.paradasSeleccionadas.join(', ') }}
+        </p>
+        <p *ngIf="!recorrido.paradasSeleccionadas?.length">
+          <strong>Paradas:</strong> No se seleccionaron paradas
+        </p>
+      </ion-label>
+
+      <ion-button slot="end" color="primary" (click)="editarRecorrido(i)">
+        Editar
+      </ion-button>
+
+      <ion-button slot="end" color="danger" (click)="eliminarRecorrido(i)">
+        Eliminar
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" routerLink="/crear-recorrido">
+    Crear Nuevo Recorrido
+  </ion-button>
+</ion-content>

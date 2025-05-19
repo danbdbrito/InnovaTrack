@@ -1,0 +1,50 @@
+<ion-header> 
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Crear Recorrido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="recorridoForm" (ngSubmit)="guardarRecorrido()">
+    <ion-item>
+      <ion-label position="floating">Seleccionar Bus</ion-label>
+      <ion-select formControlName="bus">
+        <ion-select-option *ngFor="let bus of buses" [value]="bus">{{ bus }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Seleccionar Ruta</ion-label>
+      <ion-select formControlName="ruta">
+        <ion-select-option *ngFor="let ruta of rutas" [value]="ruta">{{ ruta }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="paradas.length > 0">
+      <ion-label>Seleccionar Paradas</ion-label>
+      <ion-select formControlName="paradasSeleccionadas" multiple="true" cancelText="Cancelar" okText="Aceptar" placeholder="Selecciona paradas">
+        <ion-select-option *ngFor="let parada of paradas" [value]="parada.nombre">
+          {{ parada.nombre }} <small *ngIf="parada.descripcion">- {{ parada.descripcion }}</small>
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Hora de salida</ion-label>
+      <ion-datetime formControlName="horaSalida" displayFormat="HH:mm"></ion-datetime>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="recorridoForm.invalid">
+      Guardar Recorrido
+    </ion-button>
+
+    <ion-button expand="full" color="secondary" (click)="irAlHistorial()">
+      Ver Historial
+    </ion-button>
+  </form>
+</ion-content>
