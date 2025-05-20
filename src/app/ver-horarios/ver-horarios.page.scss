@@ -1,0 +1,25 @@
+.filtro-container {
+  margin-bottom: 15px;
+}
+
+ion-item.seleccionado {
+  background-color: #d4edda !important;
+  color: #155724 !important;
+}
+
+.confirmacion {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+.no-results-message {
+  margin-top: 20px;
+  color: #888;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+}

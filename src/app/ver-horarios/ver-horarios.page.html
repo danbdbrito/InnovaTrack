@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home-usuario">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Ver Horarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button expand="block" (click)="mostrarFiltro = !mostrarFiltro">
+    {{ mostrarFiltro ? 'Ocultar Filtro' : 'Filtrar Horarios' }}
+  </ion-button>
+
+  <div *ngIf="mostrarFiltro" class="filtro-container">
+    <ion-item>
+      <ion-label position="floating">Bus</ion-label>
+      <ion-input [(ngModel)]="filtroBus"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="aplicarFiltro()">
+      Aplicar Filtro
+    </ion-button>
+
+    <ion-button expand="block" color="medium" (click)="limpiarFiltro()">
+      Limpiar Filtro
+    </ion-button>
+  </div>
+
+<ion-list *ngIf="horariosFiltrados.length > 0; else sinResultados">
+  <ion-item *ngFor="let horario of horariosFiltrados; let i = index"
+    (click)="seleccionarHorario(i)"
+    [color]="seleccionadoIndex === i ? 'success' : ''"
+    button>
+    <ion-label>
+      <h2>{{ horario.bus }}</h2>
+      <p><strong>Ruta:</strong> {{ horario.ruta }}</p>
+      <p><strong>Hora de salida:</strong> {{ horario.horaSalida }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<ng-template #sinResultados>
+  <div class="no-results-message">
+    No se encontraron horarios para el bus , puedes ser que hoy no salga "{{ filtroBus }}"
+  </div>
+</ng-template>
+
+  <div *ngIf="mensajeConfirmacion" style="margin-top: 10px; color: green; font-weight: bold;">
+    {{ mensajeConfirmacion }}
+  </div>
+</ion-content>
