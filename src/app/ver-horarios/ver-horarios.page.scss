@@ -1,0 +1,431 @@
+// Variables de colores y espaciado
+:root {
+  --primary-color: #3880ff;
+  --success-color: #2dd36f;
+  --warning-color: #ffc409;
+  --danger-color: #eb445a;
+  --light-color: #f4f5f8;
+  --medium-color: #92949c;
+  --dark-color: #222428;
+  --border-radius: 12px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+// Botón de filtro
+.filter-toggle-container {
+  margin-bottom: 16px;
+  
+  .filter-toggle-btn {
+    --border-radius: var(--border-radius);
+    --box-shadow: var(--shadow);
+    --color: var(--primary-color);
+    --border-color: var(--primary-color);
+    font-weight: 600;
+    transition: var(--transition);
+    
+    &:hover {
+      --background: rgba(56, 128, 255, 0.05);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Contenedor de filtros
+.filtro-container {
+  margin-bottom: 24px;
+  animation: slideInDown 0.4s ease-out;
+  
+  .filter-card {
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    
+    .filter-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin: 0;
+      
+      .filter-icon {
+        color: var(--primary-color);
+        font-size: 20px;
+      }
+    }
+    
+    .filter-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      
+      .filter-item {
+        --border-radius: 8px;
+        --background: var(--light-color);
+        --border-color: transparent;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        transition: var(--transition);
+        
+        &:hover {
+          --background: #e8eaf6;
+        }
+        
+        .item-icon {
+          color: var(--primary-color);
+          margin-right: 8px;
+          font-size: 20px;
+        }
+        
+        ion-label {
+          font-weight: 500;
+        }
+      }
+    }
+    
+    .filter-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+      
+      .apply-btn {
+        --border-radius: var(--border-radius);
+        --background: var(--primary-color);
+        --color: white;
+        font-weight: 600;
+        --box-shadow: 0 4px 12px rgba(56, 128, 255, 0.3);
+        transition: var(--transition);
+        
+        &:hover {
+          transform: translateY(-2px);
+          --box-shadow: 0 6px 16px rgba(56, 128, 255, 0.4);
+        }
+      }
+      
+      .clear-btn {
+        --color: var(--medium-color);
+        font-weight: 500;
+        
+        &:hover {
+          --color: var(--dark-color);
+        }
+      }
+    }
+  }
+}
+
+// Mensaje de información
+.mensaje-otro {
+  background: linear-gradient(135deg, #fff3cd 0%, #fef5e7 100%);
+  color: #856404;
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--warning-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+  box-shadow: var(--shadow);
+  animation: slideInDown 0.3s ease-out;
+  
+  ion-icon {
+    font-size: 24px;
+    color: var(--warning-color);
+    flex-shrink: 0;
+  }
+  
+  span {
+    line-height: 1.4;
+  }
+}
+
+// Sección de resultados
+.results-section {
+  .results-header {
+    margin-bottom: 16px;
+    
+    .results-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin: 0;
+      
+      ion-icon {
+        color: var(--primary-color);
+        font-size: 22px;
+      }
+    }
+  }
+  
+  .horarios-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+// Cards de horarios
+.horario-card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  cursor: pointer;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  &.selected-card {
+    border: 2px solid var(--success-color);
+    box-shadow: 0 4px 16px rgba(45, 211, 111, 0.3);
+    
+    .horario-header {
+      background: linear-gradient(135deg, rgba(45, 211, 111, 0.1) 0%, rgba(45, 211, 111, 0.05) 100%);
+    }
+  }
+  
+  .horario-header {
+    padding: 16px 16px 8px 16px;
+    background: var(--light-color);
+    
+    .bus-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .bus-chip {
+        --background: var(--primary-color);
+        --color: white;
+        font-weight: 600;
+        height: 32px;
+        
+        ion-icon {
+          margin-right: 4px;
+        }
+      }
+      
+      .selected-badge {
+        --background: var(--success-color);
+        --color: white;
+        font-size: 12px;
+        height: 24px;
+        animation: bounceIn 0.5s ease-out;
+        
+        ion-icon {
+          font-size: 14px;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+  
+  .horario-content {
+    padding: 16px;
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+      
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        
+        .info-icon {
+          font-size: 20px;
+          color: var(--medium-color);
+          flex-shrink: 0;
+          
+          &.departure {
+            color: var(--primary-color);
+          }
+          
+          &.arrival {
+            color: var(--success-color);
+          }
+        }
+        
+        .info-text {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          min-width: 0;
+          
+          .info-label {
+            font-size: 12px;
+            color: var(--medium-color);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+          
+          .info-value {
+            font-size: 14px;
+            color: var(--dark-color);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            
+            &.departure-time {
+              color: var(--primary-color);
+            }
+            
+            &.arrival-time {
+              color: var(--success-color);
+            }
+          }
+        }
+      }
+    }
+    
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      
+      .detail-btn,
+      .notification-btn {
+        flex: 1;
+        --border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        height: 36px;
+        
+        ion-icon {
+          font-size: 16px;
+        }
+      }
+      
+      .detail-btn {
+        --color: var(--primary-color);
+        
+        &:hover {
+          --background: rgba(56, 128, 255, 0.1);
+        }
+      }
+      
+      .notification-btn {
+        --color: var(--warning-color);
+        
+        &:hover {
+          --background: rgba(255, 196, 9, 0.1);
+        }
+      }
+    }
+  }
+}
+
+// Estado vacío
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  
+  .empty-card {
+    max-width: 400px;
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    
+    .empty-content {
+      text-align: center;
+      padding: 20px;
+      
+      .empty-icon {
+        font-size: 64px;
+        color: var(--medium-color);
+        margin-bottom: 16px;
+        opacity: 0.7;
+      }
+      
+      .empty-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--dark-color);
+        margin: 0 0 12px 0;
+      }
+      
+      .empty-message {
+        color: var(--medium-color);
+        line-height: 1.5;
+        margin: 0 0 20px 0;
+        font-size: 14px;
+      }
+      
+      .retry-btn {
+        --border-radius: var(--border-radius);
+        --color: var(--primary-color);
+        --border-color: var(--primary-color);
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Animaciones
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .horario-content .info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+    gap: 8px;
+    
+    .detail-btn,
+    .notification-btn {
+      width: 100%;
+    }
+  }
+}
+
+// Toast personalizado
+ion-toast {
+  --border-radius: var(--border-radius);
+  --box-shadow: var(--shadow);
+}

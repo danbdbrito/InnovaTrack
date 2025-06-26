@@ -1,0 +1,364 @@
+:host {
+    --ion-background-color: #0f0f23;
+    --ion-text-color: #e2e8f0;
+  }
+  
+  // Configuración del modal
+  ion-modal {
+    --backdrop-opacity: 0.6;
+    --backdrop-background: rgba(0, 0, 0, 0.8);
+  }
+  
+  // Header personalizado
+  ion-header {
+    ion-toolbar {
+      --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --color: #ffffff;
+      --border-width: 0;
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+      
+      ion-title {
+        font-weight: 700;
+        font-size: 1.2rem;
+        letter-spacing: -0.02em;
+      }
+      
+      ion-button {
+        --color: rgba(255, 255, 255, 0.9);
+        --background: rgba(255, 255, 255, 0.1);
+        --border-radius: 12px;
+        
+        &:hover {
+          --background: rgba(255, 255, 255, 0.2);
+        }
+        
+        ion-icon {
+          font-size: 1.4rem;
+        }
+      }
+    }
+  }
+  
+  // Contenido principal
+  ion-content {
+    --background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 24px;
+    --padding-bottom: 24px;
+    
+    // Título principal
+    h2 {
+      color: #ffffff;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 28px 0;
+      text-align: center;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+    
+    // Lista de opciones de tiempo
+    ion-list {
+      background: transparent;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      
+      ion-radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      
+      ion-item {
+        --background: rgba(255, 255, 255, 0.06);
+        --border-color: rgba(255, 255, 255, 0.1);
+        --color: #e2e8f0;
+        --padding-start: 20px;
+        --padding-end: 20px;
+        --min-height: 56px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        margin: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        
+        &:first-child {
+          border-top-left-radius: 16px;
+          border-top-right-radius: 16px;
+        }
+        
+        &:last-child {
+          border-bottom-left-radius: 16px;
+          border-bottom-right-radius: 16px;
+        }
+        
+        &:hover {
+          --background: rgba(255, 255, 255, 0.1);
+          transform: translateX(4px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        // Estado seleccionado
+        &.item-radio-checked {
+          --background: rgba(102, 126, 234, 0.15);
+          --border-color: #667eea;
+          border-color: #667eea;
+          box-shadow: 
+            0 4px 12px rgba(102, 126, 234, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          
+          ion-label {
+            color: #ffffff;
+            font-weight: 600;
+          }
+        }
+        
+        ion-label {
+          font-size: 1rem;
+          font-weight: 500;
+          margin: 0;
+          transition: all 0.3s ease;
+        }
+        
+        ion-radio {
+          --color: #667eea;
+          --color-checked: #667eea;
+          margin: 0;
+          transform: scale(1.1);
+        }
+      }
+    }
+    
+    // Campo de mensaje personalizado
+    .mensaje-personalizado-container {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin: 24px 0;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      
+      &:focus-within {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+      
+      ion-item {
+        --background: transparent;
+        --border-color: transparent;
+        --padding-start: 20px;
+        --padding-end: 20px;
+        --min-height: 64px;
+        --color: #ffffff;
+        
+        ion-label {
+          --color: #94a3b8 !important;
+          color: #94a3b8 !important;
+          font-weight: 500;
+          
+          &.label-floating,
+          &.label-stacked {
+            --color: #667eea !important;
+            color: #667eea !important;
+          }
+        }
+        
+        ion-input {
+          --color: #ffffff !important;
+          --placeholder-color: #64748b !important;
+          color: #ffffff !important;
+          font-size: 1rem;
+          
+          input {
+            color: #ffffff !important;
+          }
+        }
+      }
+    }
+    
+    // Estilos adicionales para el input
+    ion-item {
+      &.item-has-focus {
+        ion-label {
+          --color: #667eea !important;
+          color: #667eea !important;
+        }
+      }
+    }
+    
+    // Mensaje de vista previa
+    .mensaje-preview {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
+      border: 1px solid rgba(76, 175, 80, 0.2);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 24px 0;
+      backdrop-filter: blur(10px);
+      
+      .preview-title {
+        color: #4caf50;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        ion-icon {
+          font-size: 1rem;
+        }
+      }
+      
+      .preview-content {
+        color: #e2e8f0;
+        font-size: 1rem;
+        line-height: 1.5;
+        
+        .bus-name {
+          color: #4caf50;
+          font-weight: 700;
+        }
+        
+        .mensaje-personalizado {
+          color: #ffd700;
+          font-style: italic;
+        }
+      }
+    }
+    
+    // Botón de confirmación
+    ion-button.confirm-button {
+      --background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+      --background-activated: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+      --color: #ffffff;
+      --border-radius: 16px;
+      --box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+      font-weight: 600;
+      font-size: 1.1rem;
+      height: 52px;
+      margin-top: 32px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      &:hover:not(.button-disabled) {
+        --box-shadow: 0 12px 28px rgba(76, 175, 80, 0.4);
+        transform: translateY(-2px);
+      }
+      
+      &.button-disabled {
+        --background: rgba(255, 255, 255, 0.1);
+        --color: rgba(255, 255, 255, 0.4);
+        --box-shadow: none;
+      }
+      
+      ion-icon {
+        margin-right: 8px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+  
+  // Animaciones de entrada
+  .modal-entering {
+    .ion-page {
+      animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+  
+  .modal-leaving {
+    .ion-page {
+      animation: slideOutDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+  
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideOutDown {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+  
+  // Animaciones para elementos internos
+  ion-list {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s backwards;
+  }
+  
+  .mensaje-personalizado-container {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;
+  }
+  
+  .mensaje-preview {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;
+  }
+  
+  .confirm-button {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s backwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Responsive
+  @media (max-width: 480px) {
+    ion-content {
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --padding-top: 20px;
+      
+      h2 {
+        font-size: 1.2rem;
+        margin-bottom: 24px;
+      }
+      
+      ion-list ion-item {
+        --min-height: 52px;
+        --padding-start: 16px;
+        --padding-end: 16px;
+        
+        ion-label {
+          font-size: 0.95rem;
+        }
+      }
+      
+      .mensaje-preview {
+        padding: 16px;
+        
+        .preview-content {
+          font-size: 0.95rem;
+        }
+      }
+      
+      .confirm-button {
+        height: 48px;
+        font-size: 1rem;
+      }
+    }
+  }

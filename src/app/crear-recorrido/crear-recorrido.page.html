@@ -1,0 +1,149 @@
+<ion-header class="header-custom"> 
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home" class="back-button">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="header-title" size="large">Crear Recorrido</ion-title>
+
+  </ion-toolbar>
+  <p class="header-subtitle">Completa todos los datos necesarios para el recorrido</p>
+</ion-header>
+
+<ion-content class="content-custom">
+  <div class="main-wrapper">
+    <div class="form-container">
+      <div class="form-progress">
+        <div class="form-progress-bar"></div>
+      </div>
+
+      <form [formGroup]="recorridoForm" (ngSubmit)="guardarRecorrido()">
+
+        <!-- Bus -->
+        <div class="form-group">
+          <label class="form-label">
+            <ion-icon name="bus" class="label-icon"></ion-icon>
+            Seleccionar Bus
+          </label>
+          <ion-item class="custom-item">
+            <ion-select formControlName="bus" class="custom-select" placeholder="Elige un bus" interface="popover">
+              <ion-select-option *ngFor="let bus of buses" [value]="bus">{{ bus }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <!-- Ruta -->
+        <div class="form-group">
+          <label class="form-label">
+            <ion-icon name="git-branch" class="label-icon"></ion-icon>
+            Seleccionar Ruta
+          </label>
+          <ion-item class="custom-item">
+            <ion-select formControlName="ruta" class="custom-select" placeholder="Elige una ruta" interface="popover">
+              <ion-select-option *ngFor="let ruta of rutas" [value]="ruta">{{ ruta }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <!-- Fecha -->
+        <div class="form-group">
+          <label class="form-label">
+            <ion-icon name="calendar" class="label-icon"></ion-icon>
+            Fecha de Salida
+          </label>
+          <ion-item class="custom-item">
+            <ion-input type="date" formControlName="fechaSalida" required></ion-input>
+          </ion-item>
+        </div>
+
+        <!-- Hora -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              <ion-icon name="time" class="label-icon"></ion-icon>
+              Hora Salida
+            </label>
+            <ion-item class="custom-item">
+              <ion-input type="time" formControlName="horaSalida" required></ion-input>
+            </ion-item>
+          </div>
+          <div class="form-group">
+            <label class="form-label">
+              <ion-icon name="time-outline" class="label-icon"></ion-icon>
+              Hora Llegada
+            </label>
+            <ion-item class="custom-item">
+              <ion-input type="time" formControlName="horaLlegada"></ion-input>
+            </ion-item>
+          </div>
+        </div>
+
+        <!-- Comuna -->
+        <div class="form-group">
+          <label class="form-label">
+            <ion-icon name="location" class="label-icon"></ion-icon>
+            Comuna
+          </label>
+          <ion-item class="custom-item">
+            <ion-select formControlName="comuna" class="custom-select" placeholder="Selecciona una comuna" interface="popover">
+              <ion-select-option *ngFor="let comuna of comunas" [value]="comuna">{{ comuna }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <!-- Paradas -->
+        <div class="form-group" *ngIf="paradas.length > 0">
+          <label class="form-label">
+            <ion-icon name="location-outline" class="label-icon"></ion-icon>
+            Paradas del Recorrido
+          </label>
+          <ion-item class="custom-item multi-select-item">
+            <ion-select formControlName="paradasSeleccionadas" class="custom-select" multiple="true" cancelText="Cancelar" okText="Aceptar" placeholder="Selecciona paradas" interface="popover">
+              <ion-select-option *ngFor="let parada of paradas" [value]="parada.nombre">
+                {{ parada.nombre }}
+                <span *ngIf="parada.descripcion" class="parada-description">- {{ parada.descripcion }}</span>
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="selected-items" *ngIf="recorridoForm.get('paradasSeleccionadas')?.value?.length > 0">
+            <div class="selected-item" *ngFor="let parada of recorridoForm.get('paradasSeleccionadas')?.value; let i = index">
+              {{ parada }}
+              <button type="button" class="remove-item" (click)="removeParada(i)">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarifa -->
+        <div class="form-group">
+          <label class="form-label">
+            <ion-icon name="card" class="label-icon"></ion-icon>
+            Tarifa (CLP)
+          </label>
+          <ion-item class="custom-item">
+            <ion-input type="number" formControlName="tarifa" placeholder="Ingresa la tarifa" min="0" required></ion-input>
+          </ion-item>
+          <div class="error-message" *ngIf="recorridoForm.get('tarifa')?.invalid && (recorridoForm.get('tarifa')?.dirty || recorridoForm.get('tarifa')?.touched)">
+            <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+            <span *ngIf="recorridoForm.get('tarifa')?.errors?.['required']">La tarifa es obligatoria.</span>
+            <span *ngIf="recorridoForm.get('tarifa')?.errors?.['min']">La tarifa debe ser un número positivo.</span>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="button-group">
+          <ion-button class="primary-button" expand="block" size="large" type="submit" [disabled]="recorridoForm.invalid">
+            <ion-icon name="save" slot="start"></ion-icon>
+            Guardar Recorrido
+          </ion-button>
+          <ion-button class="secondary-button" expand="block" size="large" fill="outline" (click)="irAlHistorial()">
+            <ion-icon name="list" slot="start"></ion-icon>
+            Ver Historial
+          </ion-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ion-content>

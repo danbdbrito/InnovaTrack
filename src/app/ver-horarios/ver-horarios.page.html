@@ -1,0 +1,217 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home-usuario" fill="clear">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Ver Horarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Botón de filtro moderno -->
+  <div class="filter-toggle-container">
+    <ion-button 
+      expand="block" 
+      fill="outline" 
+      shape="round"
+      (click)="mostrarFiltro = !mostrarFiltro"
+      class="filter-toggle-btn">
+      <ion-icon name="filter" slot="start"></ion-icon>
+      {{ mostrarFiltro ? 'Ocultar Filtros' : 'Filtrar Horarios' }}
+      <ion-icon [name]="mostrarFiltro ? 'chevron-up' : 'chevron-down'" slot="end"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Panel de filtros -->
+  <div *ngIf="mostrarFiltro" class="filtro-container">
+    <ion-card class="filter-card">
+      <ion-card-header>
+        <ion-card-title class="filter-title">
+          <ion-icon name="options" class="filter-icon"></ion-icon>
+          Filtros de búsqueda
+        </ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <div class="filter-grid">
+          <ion-item class="filter-item">
+            <ion-icon name="bus" slot="start" class="item-icon"></ion-icon>
+            <ion-label position="floating"></ion-label>
+            <ion-select [(ngModel)]="filtroBus" (ionChange)="onBusChange($event)" interface="popover">
+              <ion-select-option value="">Todos los buses</ion-select-option>
+              <ion-select-option *ngFor="let bus of busesDisponibles" [value]="bus">{{ bus }}</ion-select-option>
+              <ion-select-option value="otro">Otro</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <div *ngIf="mostrarMensajeOtro" class="mensaje-otro">
+            <ion-icon name="information-circle"></ion-icon>
+            <span>El bus que buscas no está disponible actualmente.</span>
+          </div>
+
+          <ion-item class="filter-item">
+            <ion-icon name="location" slot="start" class="item-icon"></ion-icon>
+            <ion-label position="floating"></ion-label>
+            <ion-select [(ngModel)]="filtroComuna" interface="popover">
+              <ion-select-option value="">Todas las comunas</ion-select-option>
+              <ion-select-option *ngFor="let comuna of comunasDisponibles" [value]="comuna">{{ comuna }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="filter-item">
+            <ion-icon name="calendar" slot="start" class="item-icon"></ion-icon>
+            <ion-label position="floating"></ion-label>
+            <ion-select [(ngModel)]="filtroFecha" interface="popover">
+              <ion-select-option value="">Todas las fechas de salida</ion-select-option>
+              <ion-select-option *ngFor="let fecha of fechasDisponibles" [value]="fecha">{{ fecha }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="filter-item">
+            <ion-icon name="time" slot="start" class="item-icon"></ion-icon>
+            <ion-label position="floating"></ion-label>
+            <ion-select [(ngModel)]="filtroHora" interface="popover">
+              <ion-select-option value="">Todas las horas de salida</ion-select-option>
+              <ion-select-option *ngFor="let hora of horasDisponibles" [value]="hora">{{ hora }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div class="filter-actions">
+          <ion-button expand="block" (click)="aplicarFiltro()" class="apply-btn">
+            <ion-icon name="checkmark" slot="start"></ion-icon>
+            Aplicar Filtros
+          </ion-button>
+          
+          <ion-button expand="block" fill="clear" color="medium" (click)="limpiarFiltro()" class="clear-btn">
+            <ion-icon name="refresh" slot="start"></ion-icon>
+            Limpiar Filtros
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Lista de horarios mejorada -->
+  <div class="results-section">
+    <div *ngIf="horariosFiltrados.length > 0" class="results-header">
+      <h3 class="results-title">
+        <ion-icon name="list"></ion-icon>
+        Horarios encontrados ({{ horariosFiltrados.length }})
+      </h3>
+    </div>
+
+    <div *ngIf="horariosFiltrados.length > 0; else sinResultados" class="horarios-grid">
+      <ion-card 
+        *ngFor="let horario of horariosFiltrados; let i = index"
+        (click)="seleccionarHorario(i)"
+        [class.selected-card]="seleccionadoIndex === i"
+        class="horario-card"
+        button>
+        
+        <ion-card-header class="horario-header">
+          <div class="bus-info">
+            <ion-chip color="primary" class="bus-chip">
+              <ion-icon name="bus"></ion-icon>
+              <ion-label>{{ horario.bus }}</ion-label>
+            </ion-chip>
+            <ion-badge *ngIf="seleccionadoIndex === i" color="success" class="selected-badge">
+              <ion-icon name="checkmark"></ion-icon>
+              Seleccionado
+            </ion-badge>
+          </div>
+        </ion-card-header>
+        
+        <ion-card-content class="horario-content">
+          <div class="info-grid">
+            <div class="info-item">
+              <ion-icon name="location" class="info-icon"></ion-icon>
+              <div class="info-text">
+                <span class="info-label">Comuna</span>
+                <span class="info-value">{{ horario.comuna }}</span>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <ion-icon name="calendar" class="info-icon"></ion-icon>
+              <div class="info-text">
+                <span class="info-label">Fecha</span>
+                <span class="info-value">{{ horario.fechaSalida }}</span>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <ion-icon name="time" class="info-icon departure"></ion-icon>
+              <div class="info-text">
+                <span class="info-label">Salida</span>
+                <span class="info-value departure-time">{{ horario.horaSalida }}</span>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <ion-icon name="flag" class="info-icon arrival"></ion-icon>
+              <div class="info-text">
+                <span class="info-label">Llegada</span>
+                <span class="info-value arrival-time">{{ horario.horaLlegada }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card-actions">
+            <ion-button 
+              fill="clear" 
+              size="small"
+              (click)="irATarifaBus(horario); $event.stopPropagation();"
+              class="detail-btn">
+              <ion-icon name="eye" slot="start"></ion-icon>
+              Detalles
+            </ion-button>
+            
+            <ion-button 
+              fill="clear" 
+              color="warning" 
+              size="small"
+              (click)="abrirNotificacionModal(horario, i); $event.stopPropagation();"
+              class="notification-btn">
+              <ion-icon name="notifications" slot="start"></ion-icon>
+              Notificar
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Estado sin resultados -->
+  <ng-template #sinResultados>
+    <div class="empty-state">
+      <ion-card class="empty-card">
+        <ion-card-content>
+          <div class="empty-content">
+            <ion-icon name="search" class="empty-icon"></ion-icon>
+            <h3 class="empty-title">No se encontraron horarios</h3>
+            <p class="empty-message">
+              No hay horarios disponibles para los filtros seleccionados.
+              <span *ngIf="filtroBus">El bus "{{ filtroBus }}" podría no tener salidas hoy.</span>
+            </p>
+            <ion-button fill="outline" (click)="limpiarFiltro()" class="retry-btn">
+              <ion-icon name="refresh" slot="start"></ion-icon>
+              Limpiar filtros
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ng-template>
+
+  <!-- Mensaje de confirmación -->
+  <ion-toast
+    *ngIf="mensajeConfirmacion"
+    [message]="mensajeConfirmacion"
+    [duration]="3000"
+    color="success"
+    position="bottom">
+  </ion-toast>
+</ion-content>

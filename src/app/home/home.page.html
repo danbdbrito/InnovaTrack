@@ -1,0 +1,45 @@
+<ion-content [fullscreen]="true">
+  <div class="header">
+    <ion-title class="title">Bienvenido, {{userName}}</ion-title>
+  </div>
+
+  <div class="bird-icon">
+    <div class="circle1">
+      <img src="assets/ChatGPT Image 10 may 2025, 15_03_39.png" alt="bird" class="bird">
+    </div>
+    <div class="circle2">
+      <img src="assets/bosque.png" alt="bosque" class="bosque">
+    </div>
+  </div>
+
+
+  <div class="content-wrapper">
+    <img src="assets/planta-izq.png" alt="Planta" class="planta">
+    <img src="assets/planta-der.png" alt="Planta" class="planta">
+  </div>
+</ion-content>
+
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+
+    <!-- Ir a Crear Recorrido -->
+    <ion-tab-button [routerLink]="['/crear-recorrido']">
+      <ion-icon name="map"></ion-icon>
+      <ion-label>Crear Recorrido</ion-label>
+    </ion-tab-button>
+
+    <!-- Historial de Recorridos -->
+    <ion-tab-button [routerLink]="['/historial-recorridos']">
+      <ion-icon name="list"></ion-icon>
+      <ion-label>Historial Recorridos</ion-label>
+    </ion-tab-button>
+
+    <!-- Perfil -->
+    <ion-tab-button [routerLink]="['/profile']">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Perfil</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>
