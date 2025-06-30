@@ -1,0 +1,169 @@
+ion-content {
+  position: relative;
+  --background: linear-gradient(180deg, #92C5DA, #C1E4D3, #7EAEAE);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 200px; /* Agrega espacio inferior para evitar superposición */
+}
+
+.header {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+
+  .title {
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  .subTitle {
+    color: gray;
+    font-size: 0.9rem;
+  }
+}
+
+.bird-icon {
+  display: flex;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative; /* Mantengo esta propiedad */
+
+  // Contenedor del círculo
+  .circle {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(170deg, #92C5DA, #F6FBEE, #F6FBEE);
+    border-radius: 50%; /* Crea el contenedor redondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+    position: relative; /* Mantengo esta propiedad */
+    overflow: hidden; /* Recorta cualquier contenido que sobresalga del círculo */
+  }
+
+  // Estilo para las imágenes generales, excluyendo las de clase .bosque
+  img:not(.bosque) {
+    position: static; /* Cambiado de absolute a static para evitar desalineaciones */
+    width: 100%; /* Asegura que ocupe todo el círculo */
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen para que cubra completamente el círculo */
+    z-index: 10;
+  }
+
+  // Imagen del bosque contenida dentro del círculo
+  .bosque {
+    position: absolute;
+    bottom: 0; /* Fija la imagen en la parte inferior del círculo */
+    height: 40%;
+    width: 73%; /* Mantengo este valor según tu diseño */
+    z-index: 1;
+    border-radius: 60%; /* Mantengo esta propiedad */
+  }
+}
+
+ion-item {
+  --background: #f1f1f1;
+  margin-bottom: 16px;
+  width: 90%; /* Ajusta el ancho de los inputs */
+  display: flex;
+  align-items: center;
+  color: gray;
+  z-index: 10;
+  margin: auto;
+  padding: 5px;
+}
+
+ion-icon {
+  color: gray;
+  z-index: 10;
+}
+
+.input {
+  font-size: 1rem;
+  text-align: center;
+  z-index: 10;
+}
+
+.signupLink,
+.forgotPassword {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  a {
+    color: #4a4a4a;
+    text-decoration: none;
+  }
+}
+
+.button-container {
+  width: 90%;
+  margin: auto;
+  z-index: 10; /* Asegura que los botones estén por encima */
+  position: relative; /* Asegura que no haya problemas de stacking context */
+
+  ion-button {
+    z-index: 10;
+  }
+}
+
+.plant-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: -1; /* Envía las plantas al fondo */
+}
+
+.plant {
+  max-height: 170px; /* Tamaño de las plantas */
+  object-fit: contain; /* Asegura que las imágenes no se deformen */
+  opacity: 0.9; /* Transparencia para integrarlas mejor */
+}
+
+.plant-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: scale(1.0); /* Aumenta el tamaño */
+}
+
+.plant-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: scale(1.0); /* Aumenta el tamaño */
+}
+
+ion-button {
+  color: gray;
+  z-index: 10;
+}
+
+.back-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  --background: rgb(0, 0, 0);
+  --color: rgb(255, 255, 255);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}

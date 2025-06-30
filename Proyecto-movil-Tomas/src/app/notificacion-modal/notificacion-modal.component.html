@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Configurar Notificación</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2>¿Con cuánto tiempo de anticipación deseas ser notificado?</h2>
+  
+  <!-- Lista de opciones de tiempo -->
+  <ion-list>
+    <ion-radio-group [(ngModel)]="tiempoSeleccionado">
+      <ion-item [class.item-radio-checked]="tiempoSeleccionado === 1">
+        <ion-label>1 minuto antes</ion-label>
+        <ion-radio slot="end" [value]="1"></ion-radio>
+      </ion-item>
+      <ion-item [class.item-radio-checked]="tiempoSeleccionado === 5">
+        <ion-label>5 minutos antes</ion-label>
+        <ion-radio slot="end" [value]="5"></ion-radio>
+      </ion-item>
+      <ion-item [class.item-radio-checked]="tiempoSeleccionado === 10">
+        <ion-label>10 minutos antes</ion-label>
+        <ion-radio slot="end" [value]="10"></ion-radio>
+      </ion-item>
+      <ion-item [class.item-radio-checked]="tiempoSeleccionado === 15">
+        <ion-label>15 minutos antes</ion-label>
+        <ion-radio slot="end" [value]="15"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  
+  <!-- Campo de mensaje personalizado -->
+  <div class="mensaje-personalizado-container">
+    <ion-item>
+      <ion-label position="floating">Mensaje personalizado (opcional)</ion-label>
+      <ion-input 
+        [(ngModel)]="mensajePersonalizado" 
+        placeholder="">
+      </ion-input>
+    </ion-item>
+  </div>
+  
+  <!-- Vista previa del mensaje -->
+  <div class="mensaje-preview" *ngIf="tiempoSeleccionado">
+    <div class="preview-title">
+      <ion-icon name="notifications-outline"></ion-icon>
+      Vista previa de notificación
+    </div>
+    <div class="preview-content">
+      Vas a recibir un aviso para el bus 
+      <span class="bus-name">{{horario.bus}}</span>
+      <span class="mensaje-personalizado" *ngIf="mensajePersonalizado">
+        : {{mensajePersonalizado}}
+      </span>
+    </div>
+  </div>
+  
+  <!-- Botón de confirmación -->
+  <ion-button 
+    expand="block" 
+    class="confirm-button"
+    (click)="confirmar()" 
+    [disabled]="!tiempoSeleccionado">
+    <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+    Confirmar Notificación
+  </ion-button>
+</ion-content>

@@ -1,0 +1,274 @@
+:root {
+    // Gradientes elegantes
+    --primary-gradient: linear-gradient(135deg, #6C63FF 0%, #9B5DE5 100%);
+    --secondary-gradient: linear-gradient(135deg, #5A4FCF 0%, #A25ED9 100%);
+    --accent-gradient: linear-gradient(135deg, #9B5DE5 0%, #F15BB5 100%);
+  
+    // Colores base refinados
+    --primary-color: #4f46e5;
+    --secondary-color: #6d28d9;
+    --accent-color: #a855f7;
+  
+    // Fondos suaves
+    --background-light: #1e293b;
+    --background-glass: #1e293b;
+    --background-field: #334155;
+    --background-hover: #475569;
+  
+    // Textos elegantes
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-light: #94a3b8;
+  
+    // Sombras modernas
+    --shadow-soft: 0 4px 20px rgba(79, 70, 229, 0.1);
+    --shadow-medium: 0 8px 32px rgba(79, 70, 229, 0.2);
+    --shadow-strong: 0 12px 40px rgba(79, 70, 229, 0.25);
+    --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.3);
+  
+    // Bordes
+    --border-radius: 16px;
+    --border-radius-large: 24px;
+    --border-radius-small: 12px;
+    --border-radius-pill: 20px;
+  }
+  
+  // Animaciones
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: var(--shadow-soft); }
+    50%     { box-shadow: var(--shadow-glow); }
+  }
+  
+  @keyframes progressFill {
+    from { width: 0%; }
+    to   { width: var(--progress-width, 0%); }
+  }
+  
+  // Fondo general
+  ion-content.content-custom {
+    --background: #000000 !important;
+    background-color: #301e1e !important;
+  
+    &::before {
+      display: none !important;
+    }
+  }
+  
+  // Header
+  .header-custom {
+    --background: var(--primary-gradient);
+    --color: white;
+    box-shadow: var(--shadow-medium);
+  
+    ion-toolbar {
+      --background: transparent;
+      --color: white;
+      padding: 20px 0 16px;
+      position: relative;
+  
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+        pointer-events: none;
+      }
+    }
+  
+    .back-button {
+      --background: rgba(255, 255, 255, 0.15);
+      --background-hover: rgba(255, 255, 255, 0.25);
+      --color: white;
+      --border-radius: var(--border-radius-small);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+  
+      &:hover {
+        transform: translateX(-4px);
+      }
+    }
+  
+    .header-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.6px;
+      margin-left: 8px;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+  
+    .header-subtitle {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      margin: 4px 0 0 12px;
+    }
+  }
+  
+  // Contenedor del formulario
+  .form-container {
+    background: #273043;
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    margin-top: 32px;
+    padding: 24px;
+    min-height: calc(100vh - 200px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    position: relative;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 4px;
+      background: var(--text-light);
+      border-radius: 2px;
+      opacity: 0.3;
+    }
+  }
+  .form-container {
+    max-width: 800px;
+    margin: 32px auto 0;
+    padding: 24px;
+    width: 90%;
+  }
+  // Inputs y selects
+  ion-select,
+  ion-input {
+    --background: var(--background-field) !important;
+    --color: var(--text-primary) !important;
+    --placeholder-color: var(--text-light) !important;
+    --highlight-color-focused: var(--accent-color);
+    --border-color: var(--accent-color);
+    background: var(--background-field) !important;
+    color: var(--text-primary) !important;
+  }
+  
+  ion-select::part(text) {
+    color: var(--text-primary) !important;
+  }
+  
+  ion-item.custom-item {
+    background: var(--background-field) !important;
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    --background: var(--background-field) !important;
+    --color: var(--text-primary) !important;
+  }
+  
+  // Popover
+  ion-select-popover,
+  ion-popover {
+    --background: var(--background-field) !important;
+    --color: var(--text-primary) !important;
+    background: var(--background-field) !important;
+    color: var(--text-primary) !important;
+  
+    ion-list {
+      background: var(--background-field) !important;
+    }
+  
+    ion-item {
+      --background: var(--background-field) !important;
+      --color: var(--text-primary) !important;
+      color: var(--text-primary) !important;
+    }
+  
+    ion-label {
+      color: var(--text-primary) !important;
+    }
+    // Botón principal: "Guardar Recorrido"
+// Botón principal: "Guardar Recorrido"
+.primary-button {
+    --background: var(--secondary-gradient);
+    --color: white;
+    --border-radius: var(--border-radius);
+    --box-shadow: var(--shadow-medium);
+    --padding-top: 6px;  // antes 18px
+    --padding-bottom: 12px;
+    
+    font-size: 6px;  // antes 16px
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+  
+    &:hover:not(.button-disabled) {
+      --box-shadow: var(--shadow-strong);
+      transform: translateY(-2px) scale(1.01);
+  
+      &::before {
+        left: 100%;
+      }
+    }
+  
+    &:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+  
+    &.button-disabled {
+      --background: #4b5563;
+      --color: #9ca3af;
+      --box-shadow: none;
+    }
+  }
+  
+  // Botón secundario: "Ver Historial"
+  .secondary-button {
+    --background: transparent;
+    --color: var(--primary-color);
+    --border-color: var(--primary-color);
+    --border-width: 2px;
+    --border-radius: var(--border-radius);
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+  
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    font-family: 'Inter', sans-serif;
+    text-transform: none;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      --background: var(--primary-color);
+      --color: white;
+      --box-shadow: var(--shadow-glow);
+      transform: translateY(-2px) scale(1.01);
+    }
+  
+    &:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+  }
+}

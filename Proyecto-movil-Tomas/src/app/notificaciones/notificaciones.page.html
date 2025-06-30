@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volverAtras()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>notificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">notificaciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list *ngIf="notificaciones.length > 0; else sinNotificaciones">
+    <ion-item *ngFor="let noti of notificaciones; let i = index">
+      <ion-label>
+        <h2>{{ noti.horario.bus }} - {{ noti.horario.ruta }}</h2>
+        <p>Hora de salida: {{ noti.horario.horaSalida }}</p>
+        <p>Notificar {{ noti.tiempo }} minutos antes</p>
+        <p *ngIf="noti.mensaje"><strong>Mensaje:</strong> {{ noti.mensaje }}</p>
+      </ion-label>
+      <ion-button color="primary" (click)="modificarNotificacion(i)">
+        Modificar
+      </ion-button>
+      <ion-button color="danger" (click)="cancelarNotificacion(i)">
+        Cancelar
+      </ion-button>
+    </ion-item>
+  </ion-list>
+  <ng-template #sinNotificaciones>
+    <div style="text-align:center; margin-top: 40px; color: #888;">
+      No tienes notificaciones activas.
+    </div>
+  </ng-template>
+</ion-content>

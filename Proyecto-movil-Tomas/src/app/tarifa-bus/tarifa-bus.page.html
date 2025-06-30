@@ -1,0 +1,50 @@
+<div class="tarifa-bus-container">
+  <!-- Encabezado del bus -->
+  <div class="bus-info">
+    <ion-icon name="bus" class="bus-icon"></ion-icon>
+    <div>
+      <h2>{{ horario.bus }}</h2>
+      <p><strong>Ruta:</strong> {{ horario.ruta }}</p>
+      <p><strong>Comuna:</strong> {{ horario.comuna }}</p>
+      <p><strong>Fecha de salida:</strong> {{ horario.fechaSalida }}</p>
+      <p><strong>Hora de salida:</strong> {{ horario.horaSalida }}</p>
+      <p><strong>Hora de llegada:</strong> {{ horario.horaLlegada }}</p>
+    </div>
+  </div>
+  
+  <!-- Lista de tarifas -->
+  <div class="tarifas-lista">
+    <div class="tarifa-item normal">
+      <ion-icon name="card-outline"></ion-icon>
+      <div>
+        <span class="tipo">Normal</span>
+        <span class="desc">Tarifa general</span>
+      </div>
+      <span class="valor">{{ tarifas.normal | currency:'CLP':'symbol':'1.0-0' }}</span>
+    </div>
+    
+    <div class="tarifa-item adulto">
+      <ion-icon name="person-outline"></ion-icon>
+      <div>
+        <span class="tipo">Adulto mayor</span>
+        <span class="desc">50% de descuento</span>
+      </div>
+      <span class="valor">{{ tarifas.adultoMayor | currency:'CLP':'symbol':'1.0-0' }}</span>
+    </div>
+    
+    <div class="tarifa-item estudiante">
+      <ion-icon name="school-outline"></ion-icon>
+      <div>
+        <span class="tipo">Estudiante</span>
+        <span class="desc">33% de descuento</span>
+      </div>
+      <span class="valor">{{ tarifas.estudiante | currency:'CLP':'symbol':'1.0-0' }}</span>
+    </div>
+  </div>
+  
+  <!-- Botón volver -->
+  <ion-button expand="block" class="btn-volver" (click)="volverAtras()">
+    <ion-icon name="arrow-back" slot="start"></ion-icon>
+    Volver
+  </ion-button>
+</div>

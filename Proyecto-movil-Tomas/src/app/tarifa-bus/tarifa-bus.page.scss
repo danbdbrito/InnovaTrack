@@ -1,0 +1,271 @@
+:host {
+  --ion-background-color: #0f0f23;
+  --ion-text-color: #e2e8f0;
+}
+
+.tarifa-bus-container {
+  max-width: 420px;
+  margin: 16px auto;
+  padding: 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+// Efecto de brillo sutil
+.tarifa-bus-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.bus-info {
+  display: flex;
+  gap: 18px;
+  padding: 28px 24px 20px;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(76, 175, 80, 0.05) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+
+  ion-icon.bus-icon {
+    font-size: 3rem;
+    color: #4caf50;
+    margin-top: 2px;
+    filter: drop-shadow(0 2px 4px rgba(76, 175, 80, 0.3));
+  }
+
+  h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.4;
+
+    strong {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+  }
+}
+
+.tarifas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+}
+
+.tarifa-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  ion-icon {
+    font-size: 1.8rem;
+    margin-right: 16px;
+    padding: 8px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .tipo {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+
+  .desc {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  .valor {
+    margin-left: auto;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  // Colores específicos para cada tipo
+  &.normal {
+    border-left: 3px solid #00bcd4;
+    
+    ion-icon {
+      color: #00bcd4;
+      background: rgba(0, 188, 212, 0.15);
+    }
+    
+    .valor {
+      color: #00bcd4;
+      background: rgba(0, 188, 212, 0.15);
+    }
+  }
+
+  &.adulto {
+    border-left: 3px solid #4caf50;
+    
+    ion-icon {
+      color: #4caf50;
+      background: rgba(76, 175, 80, 0.15);
+    }
+    
+    .valor {
+      color: #4caf50;
+      background: rgba(76, 175, 80, 0.15);
+    }
+  }
+
+  &.estudiante {
+    border-left: 3px solid #e91e63;
+    
+    ion-icon {
+      color: #e91e63;
+      background: rgba(233, 30, 99, 0.15);
+    }
+    
+    .valor {
+      color: #e91e63;
+      background: rgba(233, 30, 99, 0.15);
+    }
+  }
+}
+
+.btn-volver {
+  margin: 0 24px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  height: 52px;
+  --background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+  --background-activated: linear-gradient(135deg, #4b5563 0%, #6b7280 100%);
+  --color: #ffffff;
+  --border-radius: 16px;
+  --box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  ion-icon {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    --box-shadow: 
+      0 12px 28px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+}
+
+// Animaciones de entrada
+.tarifa-bus-container {
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tarifa-item {
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .tarifa-bus-container {
+    margin: 12px;
+    border-radius: 20px;
+  }
+  
+  .bus-info {
+    padding: 24px 20px 16px;
+    
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+  
+  .tarifas-lista {
+    padding: 20px;
+    gap: 10px;
+  }
+  
+  .tarifa-item {
+    padding: 16px 18px;
+    
+    .valor {
+      font-size: 1.2rem;
+    }
+  }
+
+  .btn-volver {
+    margin: 0 20px 20px;
+    height: 48px;
+  }
+}

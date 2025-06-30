@@ -1,0 +1,97 @@
+ion-content {
+  --background: linear-gradient(180deg, #92C5DA, #C1E4D3, #7EAEAE);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 16px;
+  position: relative;
+}
+
+ion-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.back-button {
+  font-size: 1.5rem;
+  --background: none;
+  --color: #333;
+}
+
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 45px; /* Espacio para evitar solapamiento con el header */
+  
+  img{
+    width: 100%;
+  }
+}
+
+.info {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto; /* Centra la carta */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  background-color: white;
+}
+
+.primary-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  ion-button{
+    margin: 10px;
+    width: 90%;
+    z-index: 10;
+  }
+}
+
+ion-button {
+  margin: 0 8px;
+}
+
+.secondary-buttons ion-button {
+  max-width: 150px;
+}
+
+.plant-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: -1; /* Envía las plantas al fondo */
+}
+
+.plant {
+  max-height: 170px; /* Tamaño de las plantas */
+  object-fit: contain; /* Asegura que las imágenes no se deformen */
+  opacity: 0.9; /* Transparencia para integrarlas mejor */
+}
+
+.plant-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: scale(1.0); /* Aumenta el tamaño */
+}
+
+.plant-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: scale(1.0); /* Aumenta el tamaño */
+}

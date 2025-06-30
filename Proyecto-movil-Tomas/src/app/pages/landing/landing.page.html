@@ -1,0 +1,24 @@
+<ion-content [fullscreen]="true">
+  <div class="header">
+    <ion-title class="title">Explora tu naturaleza</ion-title>
+  </div>
+  
+  <div class="bird-icon">
+    <div class="circle">
+      <img src="assets/Bird-icon.png" alt="Bird">
+      <img src="assets/bosque.png" alt="bosque" class="bosque">
+    </div>
+  </div>
+
+  <ion-fab class="ionic-fab-button" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/home']">
+      <ion-icon name="chevron-forward"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="content-wrapper">
+    <img src="assets/planta-izq.png" alt="Planta" class="planta">
+    <img src="assets/planta-der.png" alt="Planta" class="planta">
+  </div>
+
+</ion-content>
