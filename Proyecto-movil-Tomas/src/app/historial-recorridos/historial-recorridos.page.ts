@@ -25,51 +25,41 @@ export class HistorialRecorridosPage implements OnInit {
   }
 
   editarRecorrido(index: number) {
-    // Verificar si este recorrido es el horario seleccionado actualmente
-    const horarioSeleccionado = localStorage.getItem('horarioSeleccionado');
-    if (horarioSeleccionado && parseInt(horarioSeleccionado) === index) {
-      // Marcar que se está editando el horario seleccionado
-      localStorage.setItem('editandoHorarioSeleccionado', 'true');
-    }
-    
     this.router.navigate(['/crear-recorrido'], { queryParams: { index } });
   }
 
   eliminarRecorrido(index: number) {
     const recorridoEliminado = this.historialRecorridos[index];
-    
-    // Verificar si este recorrido es el horario seleccionado actualmente
     const horarioSeleccionado = localStorage.getItem('horarioSeleccionado');
-    const eraHorarioSeleccionado = horarioSeleccionado && parseInt(horarioSeleccionado) === index;
-    
-    // Guardar información del recorrido eliminado para mostrar en home-usuario
+    const eraHorarioSeleccionado = horarioSeleccionado && parseInt(horarioSeleccionado, 10) === index;
+
     if (recorridoEliminado) {
-      // Asegurar que se extraiga correctamente el número del bus
-      const numeroBus = recorridoEliminado.bus ? 
-        (recorridoEliminado.bus.includes(' ') ? recorridoEliminado.bus.split(' ')[1] : recorridoEliminado.bus) : 
-        'N/A';
-      
+      const numeroBus = recorridoEliminado.bus
+        ? (recorridoEliminado.bus.includes(' ')
+            ? recorridoEliminado.bus.split(' ')[1]
+            : recorridoEliminado.bus)
+        : 'N/A';
+
       const mensajeEliminacion = {
         bus: recorridoEliminado.bus || 'N/A',
-        numeroBus: numeroBus,
+        numeroBus,
         horaSalida: recorridoEliminado.horaSalida || 'N/A',
         comuna: recorridoEliminado.comuna || 'N/A',
         fechaSalida: recorridoEliminado.fechaSalida || 'N/A',
         eraSeleccionado: eraHorarioSeleccionado,
         timestamp: new Date().getTime()
       };
-      
+
       localStorage.setItem('recorridoEliminado', JSON.stringify(mensajeEliminacion));
     }
-    
-    // Si era el horario seleccionado, limpiar la selección
+
     if (eraHorarioSeleccionado) {
       localStorage.removeItem('horarioSeleccionado');
       localStorage.removeItem('horarioSeleccionadoObj');
     }
-    
-    this.historialRecorridos.splice(index, 1);  // Elimina del array
-    localStorage.setItem('historialRecorridos', JSON.stringify(this.historialRecorridos));  // Actualiza storage
+
+    this.historialRecorridos.splice(index, 1);
+    localStorage.setItem('historialRecorridos', JSON.stringify(this.historialRecorridos));
   }
 
   mostrarToastCambioHorario() {

@@ -11,25 +11,30 @@
 
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item *ngFor="let recorrido of historialRecorridos; let i = index">
+    <ion-item *ngFor="let r of historialRecorridos; let i = index">
       <ion-label>
-        <h2>{{ recorrido.bus }}</h2>
-        <p><strong>Ruta:</strong> {{ recorrido.ruta }}</p>
-        <p><strong>Hora de salida:</strong> {{ recorrido.horaSalida }}</p>
+        <h2>{{ r.bus }} — {{ r.ruta }}</h2>
+        <p><strong>Salida:</strong> {{ r.fechaSalida }} {{ r.horaSalida }}</p>
 
-        <!-- NUEVO: Mostrar paradas -->
-        <p *ngIf="recorrido.paradasSeleccionadas?.length">
-          <strong>Paradas:</strong> {{ recorrido.paradasSeleccionadas.join(', ') }}
+        <!-- Fecha de ingreso de ambas tarifas formateada DD/MM/YYYY -->
+        <p>
+          <strong>Registrado:</strong><br>
+          Tarifa actual: {{ r.tarifa }} CLP — {{ r.fechaIngresoActual | date:'dd/MM/yyyy' }}<br>
+          Tarifa referencial: {{ r.tarifaReferencial }} CLP — {{ r.fechaIngresoReferencial | date:'dd/MM/yyyy' }}
         </p>
-        <p *ngIf="!recorrido.paradasSeleccionadas?.length">
-          <strong>Paradas:</strong> No se seleccionaron paradas
+
+        <!-- Mostrar Tarifa Total y % de descuento -->
+        <p *ngIf="r.descuentoPorcentaje > 0">
+          <strong>Tarifa Total:</strong> {{ r.tarifaTotal }} CLP<br>
+          <strong>Descuento aplicado:</strong> {{ r.descuentoPorcentaje }}%
         </p>
+
+        <!-- Si quieres mostrar siempre la tarifa total, quita el *ngIf -->
       </ion-label>
 
       <ion-button slot="end" color="primary" (click)="editarRecorrido(i)">
         Editar
       </ion-button>
-
       <ion-button slot="end" color="danger" (click)="eliminarRecorrido(i)">
         Eliminar
       </ion-button>

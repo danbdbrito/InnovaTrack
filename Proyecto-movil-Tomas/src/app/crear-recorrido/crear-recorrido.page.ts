@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CrearRecorridoPage implements OnInit {
   recorridoForm: FormGroup;
   buses = ['Bus 101', 'Bus 205', 'Bus 307', 'Bus 403', 'Bus 411', 'Bus 401', 'Bus 211', 'Bus 670', 'Bus 342', 'Bus 666'];
-  
   rutas = ['Ruta 1', 'Ruta 2', 'Ruta 3', 'Ruta 4', 'Ruta 5', 'Ruta 6', 'Ruta 7'];
 
   paradasPorRuta: { [key: string]: { nombre: string, descripcion?: string }[] } = {
@@ -78,108 +77,120 @@ export class CrearRecorridoPage implements OnInit {
       comuna: ['', Validators.required],
       paradasSeleccionadas: [[], Validators.required],
       tarifa: ['', [Validators.required, Validators.min(0)]],
+      tarifaReferencial: [{ value: '', disabled: true }],
+      descuentoPorcentaje: [0, [Validators.min(0), Validators.max(100)]],
+      tarifaTotal: [{ value: '', disabled: true }]
     });
 
-    this.recorridoForm.get('ruta')?.valueChanges.subscribe(selectedRuta => {
-      this.paradas = this.paradasPorRuta[selectedRuta] || [];
-      // Limpiamos la selección de paradas cuando cambia la ruta
-      this.recorridoForm.patchValue({ paradasSeleccionadas: [] });
-    });
-
+    // Detectar modo edición
     this.route.queryParams.subscribe(params => {
       if (params['index'] !== undefined) {
         this.editIndex = +params['index'];
         this.cargarDatosParaEditar();
       }
     });
+
+    // Recalculaciones en creación
+    this.recorridoForm.get('tarifa')!.valueChanges.subscribe(() => {
+      this.actualizarReferencial();
+      this.actualizarTotal();
+    });
+    this.recorridoForm.get('horaSalida')!.valueChanges.subscribe(() => this.actualizarReferencial());
+    this.recorridoForm.get('descuentoPorcentaje')!.valueChanges.subscribe(() => this.actualizarTotal());
+
+    // Al cambiar ruta, recargar paradas
+    this.recorridoForm.get('ruta')?.valueChanges.subscribe(selectedRuta => {
+      this.paradas = this.paradasPorRuta[selectedRuta] || [];
+      this.recorridoForm.patchValue({ paradasSeleccionadas: [] });
+    });
+  }
+
+  private actualizarReferencial() {
+    if (this.editIndex !== null) return;
+    const tarifaVal = Number(this.recorridoForm.get('tarifa')!.value) || 0;
+    const horaStr = this.recorridoForm.get('horaSalida')!.value || '';
+    let factor = 1;
+    if (horaStr) {
+      const [h] = horaStr.split(':').map(Number);
+      if ((h >= 7 && h < 9) || (h >= 18 && h < 20)) factor = 1.2;
+    }
+    const referencial = Math.round(tarifaVal * factor);
+    this.recorridoForm.patchValue({ tarifaReferencial: referencial }, { emitEvent: false });
+  }
+
+  private actualizarTotal() {
+    const tarifaVal = Number(this.recorridoForm.get('tarifa')!.value) || 0;
+    const descuento = Number(this.recorridoForm.get('descuentoPorcentaje')!.value) || 0;
+    const total = Math.round(tarifaVal * (1 - descuento / 100));
+    this.recorridoForm.patchValue({ tarifaTotal: total }, { emitEvent: false });
   }
 
   cargarDatosParaEditar() {
-    const historialRecorridos = JSON.parse(localStorage.getItem('historialRecorridos') || '[]');
-    const recorrido = historialRecorridos[this.editIndex!];
-    if (recorrido) {
-      this.recorridoForm.patchValue({
-        bus: recorrido.bus,
-        ruta: recorrido.ruta,
-        fechaSalida: recorrido.fechaSalida || '',
-        horaSalida: recorrido.horaSalida,
-        horaLlegada: recorrido.horaLlegada || '',
-        comuna: recorrido.comuna || '',
-        paradasSeleccionadas: recorrido.paradasSeleccionadas || [],
-        tarifa: recorrido.tarifa || ''
-      });
-      this.paradas = this.paradasPorRuta[recorrido.ruta] || [];
-    }
+    const historial = JSON.parse(localStorage.getItem('historialRecorridos') || '[]');
+    const rec = historial[this.editIndex!];
+    if (!rec) return;
+    this.recorridoForm.patchValue({
+      bus: rec.bus,
+      ruta: rec.ruta,
+      fechaSalida: rec.fechaSalida,
+      horaSalida: rec.horaSalida,
+      horaLlegada: rec.horaLlegada,
+      comuna: rec.comuna,
+      paradasSeleccionadas: rec.paradasSeleccionadas || [],
+      tarifa: rec.tarifa,
+      tarifaReferencial: rec.tarifaReferencial,
+      descuentoPorcentaje: rec.descuentoPorcentaje || 0,
+      tarifaTotal: rec.tarifaTotal || rec.tarifa
+    });
+    this.paradas = this.paradasPorRuta[rec.ruta] || [];
   }
 
   guardarRecorrido() {
-    if (this.recorridoForm.valid) {
-      const datos = this.recorridoForm.value;
-      // Validar que la fecha de salida no sea anterior a hoy (solo comparar año, mes y día)
-      const hoy = new Date();
-      const [anio, mes, dia] = datos.fechaSalida.split('-').map(Number);
-      const fechaSalida = new Date(anio, mes - 1, dia);
-      const fechaHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
-      if (fechaSalida < fechaHoy) {
-        alert('La fecha de salida no puede ser anterior a la fecha actual.');
-        return;
-      }
-      
-      const historialRecorridos = JSON.parse(localStorage.getItem('historialRecorridos') || '[]');
-      const recorridoAnterior = this.editIndex !== null ? historialRecorridos[this.editIndex] : null;
-      
-      if (this.editIndex !== null) {
-        historialRecorridos[this.editIndex] = datos;
-        
-        // Actualizar horarioSeleccionadoObj si este es el horario seleccionado
-        const horarioSeleccionado = localStorage.getItem('horarioSeleccionado');
-        if (horarioSeleccionado && parseInt(horarioSeleccionado) === this.editIndex) {
-          localStorage.setItem('horarioSeleccionadoObj', JSON.stringify(datos));
-        }
-        
-        // Actualizar notificaciones si el recorrido anterior tenía notificaciones
-        if (recorridoAnterior) {
-          this.actualizarNotificaciones(recorridoAnterior, datos);
-        }
-        
-        alert('Recorrido actualizado exitosamente');
-      } else {
-        historialRecorridos.push(datos);
-        alert('Recorrido registrado exitosamente');
-      }
-      
-      localStorage.setItem('historialRecorridos', JSON.stringify(historialRecorridos));
-      this.router.navigate(['/historial-recorridos']);
+    if (!this.recorridoForm.valid) return;
+
+    // Validar fecha de salida
+    const datosForm: any = this.recorridoForm.getRawValue();
+    const [a, m, d] = datosForm.fechaSalida.split('-').map(Number);
+    const fechaSalida = new Date(a, m - 1, d);
+    const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    if (fechaSalida < hoy) {
+      alert('La fecha de salida no puede ser anterior a la fecha actual.');
+      return;
     }
+
+    const historial = JSON.parse(localStorage.getItem('historialRecorridos') || '[]');
+    const ahora = new Date().toISOString();
+    let nuevoRegistro: any;
+
+    if (this.editIndex !== null) {
+      const viejo = historial[this.editIndex];
+      nuevoRegistro = {
+        ...datosForm,
+        tarifaReferencial: viejo.tarifa,
+        fechaIngresoReferencial: viejo.fechaIngresoActual,
+        fechaIngresoActual: ahora
+      };
+      historial[this.editIndex] = nuevoRegistro;
+      alert('Recorrido actualizado exitosamente');
+    } else {
+      nuevoRegistro = {
+        ...datosForm,
+        tarifaReferencial: datosForm.tarifa,
+        fechaIngresoReferencial: ahora,
+        fechaIngresoActual: ahora
+      };
+      historial.push(nuevoRegistro);
+      alert('Recorrido registrado exitosamente');
+    }
+
+    localStorage.setItem('historialRecorridos', JSON.stringify(historial));
+    this.router.navigate(['/historial-recorridos']);
   }
 
-  actualizarNotificaciones(recorridoAnterior: any, recorridoNuevo: any) {
-    const notificaciones = JSON.parse(localStorage.getItem('notificaciones') || '[]');
-    let notificacionesActualizadas = false;
-    
-    // Buscar y actualizar notificaciones que coincidan con el recorrido anterior
-    notificaciones.forEach((notificacion: any) => {
-      if (notificacion.horario.bus === recorridoAnterior.bus && 
-          notificacion.horario.ruta === recorridoAnterior.ruta && 
-          notificacion.horario.horaSalida === recorridoAnterior.horaSalida) {
-        
-        // Actualizar la información del horario en la notificación
-        notificacion.horario = {
-          bus: recorridoNuevo.bus,
-          ruta: recorridoNuevo.ruta,
-          horaSalida: recorridoNuevo.horaSalida,
-          horaLlegada: recorridoNuevo.horaLlegada,
-          comuna: recorridoNuevo.comuna,
-          fechaSalida: recorridoNuevo.fechaSalida,
-          tarifa: recorridoNuevo.tarifa
-        };
-        notificacionesActualizadas = true;
-      }
-    });
-    
-    if (notificacionesActualizadas) {
-      localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
-    }
+  removeParada(index: number) {
+    const sel = this.recorridoForm.get('paradasSeleccionadas')!.value || [];
+    sel.splice(index, 1);
+    this.recorridoForm.patchValue({ paradasSeleccionadas: sel });
   }
 
   irAlHistorial() {

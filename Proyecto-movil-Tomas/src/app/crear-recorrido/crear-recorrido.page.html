@@ -1,4 +1,4 @@
-<ion-header class="header-custom"> 
+<ion-header class="header-custom">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button routerLink="/home" class="back-button">
@@ -6,7 +6,6 @@
       </ion-button>
     </ion-buttons>
     <ion-title class="header-title" size="large">Crear Recorrido</ion-title>
-
   </ion-toolbar>
   <p class="header-subtitle">Completa todos los datos necesarios para el recorrido</p>
 </ion-header>
@@ -27,7 +26,7 @@
             Seleccionar Bus
           </label>
           <ion-item class="custom-item">
-            <ion-select formControlName="bus" class="custom-select" placeholder="Elige un bus" interface="popover">
+            <ion-select formControlName="bus" placeholder="Elige un bus" interface="popover">
               <ion-select-option *ngFor="let bus of buses" [value]="bus">{{ bus }}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -40,13 +39,13 @@
             Seleccionar Ruta
           </label>
           <ion-item class="custom-item">
-            <ion-select formControlName="ruta" class="custom-select" placeholder="Elige una ruta" interface="popover">
+            <ion-select formControlName="ruta" placeholder="Elige una ruta" interface="popover">
               <ion-select-option *ngFor="let ruta of rutas" [value]="ruta">{{ ruta }}</ion-select-option>
             </ion-select>
           </ion-item>
         </div>
 
-        <!-- Fecha -->
+        <!-- Fecha de Salida -->
         <div class="form-group">
           <label class="form-label">
             <ion-icon name="calendar" class="label-icon"></ion-icon>
@@ -57,7 +56,7 @@
           </ion-item>
         </div>
 
-        <!-- Hora -->
+        <!-- Hora Salida / Llegada -->
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">
@@ -86,7 +85,7 @@
             Comuna
           </label>
           <ion-item class="custom-item">
-            <ion-select formControlName="comuna" class="custom-select" placeholder="Selecciona una comuna" interface="popover">
+            <ion-select formControlName="comuna" placeholder="Selecciona una comuna" interface="popover">
               <ion-select-option *ngFor="let comuna of comunas" [value]="comuna">{{ comuna }}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -99,7 +98,7 @@
             Paradas del Recorrido
           </label>
           <ion-item class="custom-item multi-select-item">
-            <ion-select formControlName="paradasSeleccionadas" class="custom-select" multiple="true" cancelText="Cancelar" okText="Aceptar" placeholder="Selecciona paradas" interface="popover">
+            <ion-select formControlName="paradasSeleccionadas" multiple cancelText="Cancelar" okText="Aceptar" placeholder="Selecciona paradas" interface="popover">
               <ion-select-option *ngFor="let parada of paradas" [value]="parada.nombre">
                 {{ parada.nombre }}
                 <span *ngIf="parada.descripcion" class="parada-description">- {{ parada.descripcion }}</span>
@@ -130,6 +129,39 @@
             <span *ngIf="recorridoForm.get('tarifa')?.errors?.['required']">La tarifa es obligatoria.</span>
             <span *ngIf="recorridoForm.get('tarifa')?.errors?.['min']">La tarifa debe ser un número positivo.</span>
           </div>
+        </div>
+
+        <!-- Tarifa Referencial -->
+        <div class="form-group">
+          <label class="form-label">
+            <ion-icon name="pricetag" class="label-icon"></ion-icon>
+            Tarifa Referencial (CLP)
+          </label>
+          <ion-item class="custom-item">
+            <ion-input type="number" formControlName="tarifaReferencial" readonly></ion-input>
+          </ion-item>
+        </div>
+
+        <!-- Descuento (%) -->
+        <div class="form-group">
+          <label class="form-label">
+            <ion-icon name="percent" class="label-icon"></ion-icon>
+            Descuento (%)
+          </label>
+          <ion-item class="custom-item">
+            <ion-input type="number" formControlName="descuentoPorcentaje" placeholder="Ingresa % descuento"></ion-input>
+          </ion-item>
+        </div>
+
+        <!-- Tarifa Total -->
+        <div class="form-group">
+          <label class="form-label">
+            <ion-icon name="calculator" class="label-icon"></ion-icon>
+            Tarifa Total (CLP)
+          </label>
+          <ion-item class="custom-item">
+            <ion-input type="number" formControlName="tarifaTotal" readonly></ion-input>
+          </ion-item>
         </div>
 
         <!-- Botones -->
