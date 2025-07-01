@@ -78,6 +78,10 @@ const routes: Routes = [
     path: 'calificacion-comentarios',
     loadChildren: () => import('./calificacion-comentarios/calificacion-comentarios.module').then( m => m.CalificacionComentariosPageModule)
   },
+  {
+    path: 'historial-usuario',
+    loadChildren: () => import('./historial-usuario/historial-usuario.module').then( m => m.HistorialUsuarioPageModule)
+  },
 
   
 ];
