@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/ver-horarios"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Calificar Recorrido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Lista para seleccionar recorrido -->
+  <ion-list>
+    <ion-radio-group [(ngModel)]="recorridoSeleccionadoIndex" (ionChange)="cargarRecorridoSeleccionado()">
+      <ion-list-header>
+        <ion-label>Selecciona un recorrido para calificar</ion-label>
+      </ion-list-header>
+
+      <ion-item *ngFor="let recorrido of historialRecorridos; let i = index">
+        <ion-label>
+          {{ recorrido.nombre }} - {{ recorrido.ruta }} - {{ recorrido.horaSalida }}
+        </ion-label>
+        <ion-radio slot="start" [value]="i"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <!-- Mostrar recorrido seleccionado -->
+  <ion-card *ngIf="recorridoSeleccionado !== null">
+    <ion-card-header>
+      <ion-card-title>Recorrido Seleccionado</ion-card-title>
+      <ion-card-subtitle>{{ recorridoSeleccionado.nombre }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <!-- Círculos de calificación -->
+  <div class="ion-text-center" *ngIf="recorridoSeleccionado !== null">
+    <h2>¿Cómo fue tu experiencia?</h2>
+    <div class="circle-container">
+      <div *ngFor="let i of [1, 2, 3, 4, 5]"
+           (click)="seleccionarCalificacion(i)"
+           [class.active]="i <= calificacion"
+           class="circle">
+        {{ i }}
+      </div>
+    </div>
+
+    <!-- Comentarios -->
+    <ion-item>
+      <ion-label position="floating">Comentario</ion-label>
+      <ion-textarea [(ngModel)]="comentario"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="full" (click)="guardarCalificacion()">Guardar Calificación</ion-button>
+  </div>
+
+</ion-content>

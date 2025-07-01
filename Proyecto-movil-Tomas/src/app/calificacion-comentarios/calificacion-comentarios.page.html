@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Calificaciones y Comentarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-list *ngIf="calificados.length > 0">
+    <ion-list-header>
+      <ion-label>Recorridos Calificados</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let recorrido of calificados">
+      <ion-label>
+        <h2>{{ recorrido.nombre }}</h2>
+        <p>Calificación: {{ recorrido.calificacion }}/5</p>
+        <p>Comentario: {{ recorrido.comentario || 'Sin comentarios' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <p *ngIf="calificados.length === 0" class="ion-text-center">
+    No hay recorridos calificados aún.
+  </p>
+
+</ion-content>

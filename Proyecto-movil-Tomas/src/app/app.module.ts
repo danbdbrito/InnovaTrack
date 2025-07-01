@@ -23,9 +23,10 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 // **Importar FormsModule para usar ngModel**
 import { FormsModule } from '@angular/forms';  // Asegúrate de agregar esta línea
+import { NotificacionModalComponent } from './notificacion-modal/notificacion-modal.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotificacionModalComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

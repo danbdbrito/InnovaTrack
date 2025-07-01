@@ -46,10 +46,44 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
   },
+{
+    path: 'home-usuario',
+    loadChildren: () => import('./home-usuario/home-usuario.module').then( m => m.HomeUsuarioPageModule)
+  },
+  {
+    path: 'ver-horarios',
+    loadChildren: () => import('./ver-horarios/ver-horarios.module').then( m => m.VerHorariosPageModule)
+  },
+  {
+  path: 'ver-horarios',
+  loadChildren: () => import('./ver-horarios/ver-horarios.module').then(m => m.VerHorariosPageModule)
+},
   { 
     path: 'species-details/:id', 
     loadChildren: () => import('./pages/species-details/species-details.module').then(m => m.SpeciesDetailsPageModule) 
   },
+  {
+    path: 'tarifa-bus',
+    loadChildren: () => import('./tarifa-bus/tarifa-bus.module').then( m => m.TarifaBusPageModule)
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+  {
+    path: 'calificacion',
+    loadChildren: () => import('./calificacion/calificacion.module').then( m => m.CalificacionPageModule)
+  },
+  {
+    path: 'calificacion-comentarios',
+    loadChildren: () => import('./calificacion-comentarios/calificacion-comentarios.module').then( m => m.CalificacionComentariosPageModule)
+  },
+  {
+    path: 'historial-usuario',
+    loadChildren: () => import('./historial-usuario/historial-usuario.module').then( m => m.HistorialUsuarioPageModule)
+  },
+
+  
 ];
 
 @NgModule({

@@ -36,7 +36,7 @@ export class SignupPage implements OnInit {
       ]],
       password: ['', [
         Validators.required,
-        Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w\\s]).{8,}$")
+        Validators.pattern("(?=.*\d)(?=.*[a-z])(?=.*[0-8])(?=.*[A-Z]).{8,}")
       ]]
 
     })

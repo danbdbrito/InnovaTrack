@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home-usuario">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Historial de Recorridos (Usuario)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let r of historialRecorridos">
+      <ion-label>
+        <h2>{{ r.bus }} — {{ r.ruta }}</h2>
+        <p><strong>Salida:</strong> {{ r.fechaSalida }} {{ r.horaSalida }}</p>
+
+        <p>
+          <strong>Registrado:</strong><br>
+          Tarifa actual: {{ r.tarifa }} CLP — {{ r.fechaIngresoActual | date:'dd/MM/yyyy' }}<br>
+          Tarifa referencial: {{ r.tarifaReferencial }} CLP — {{ r.fechaIngresoReferencial | date:'dd/MM/yyyy' }}
+        </p>
+
+        <p *ngIf="r.descuentoPorcentaje > 0">
+          <strong>Tarifa Total:</strong> {{ r.tarifaTotal }} CLP<br>
+          <strong>Descuento aplicado:</strong> {{ r.descuentoPorcentaje }}%
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

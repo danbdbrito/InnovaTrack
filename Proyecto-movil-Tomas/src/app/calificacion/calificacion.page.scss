@@ -1,0 +1,27 @@
+.circle-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;      /* blanco por defecto */
+  color: #3880ff;               /* texto azul */
+  border: 2px solid #3880ff;    /* borde azul */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  user-select: none;
+}
+
+.circle.active {
+  background-color: #3880ff;    /* fondo azul cuando está activo */
+  color: white;                 /* texto blanco cuando está activo */
+}
